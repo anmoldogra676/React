@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ui highly optimized way -> manipulate  -->
+    <!-- algorithm -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <!-- react through -> Dom change -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- bebel -> JSX-> js -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- CLASS bASED Component 
+constructor chlega 
+render chlega( UI pe jo dikhega)
+jaise state change toh rerender hoga dobara-->
+
+    <!-- Flow
+     a make anything dynamic -->
+    <!-- imagine  a static inital Ui -->
+    <!-- identify different variable and add them to state -->
+    <!-- replace static value with the state variable -->
+    <!-- whenever you 
+        will change the state i will call the 
+        render function again -->
+
+
+
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Counter extends React.Component {
+
+            constructor(props) {
+                super(props);
+                this.state = {  //state mtlb kuch stores krna ho
+                    count: 0  // initially value zero
+                }
+
+                // bind --> copy deta hai-> isme this jo diya hoga andr usko point kr deta hia 
+                // is case m this hmare current object/ counter ko point krega mtlb hr counter ka 
+                // khud ka apna increment aur decrement hai kyunki simple increment , decrement class ka fuction hai 
+                // to apna bnane k liye usme this use kiya aur yeh baad m chelga kyunki event click m pass kiya hai toh us
+                // time tk this m  woh button jayega na ki fxn 
+
+                this.decrement = this.decrement.bind(this) //  bind se ensure hai ki yeh  sirf is particular object k liye call ho 
+                this.increment=  this.increment.bind(this)
+            }
+
+            increment() {
+
+                this.setState(
+                    {
+                        count: this.state.count + 1
+                    }
+                )
+            }
+
+            decrement() {
+
+                this.setState(
+                    {
+                        count: this.state.count - 1
+                    }
+                )
+            }
+
+            render() {
+                return (
+                    <React.Fragment>
+                        <p>{this.state.count}</p>
+                        <button onClick= {this.increment}  >+</button>
+                   
+                        <button onClick= {this.decrement}>-</button>
+                    </React.Fragment>
+                )
+            }
+        }
+
+
+
+        ReactDOM.render(
+            
+        <div>
+        <Counter />
+        <Counter />
+        <Counter />
+        <Counter />
+        </div>, document.getElementById('root'));
+
+    </script>
+
+</body>
+
+</html>
