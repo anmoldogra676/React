@@ -9,6 +9,8 @@
 
 
 import React, { Component } from 'react';
+import InputContainer from './InputContainer';
+import TaskList from './TaskList';
 //1.render -> static ui define
 // /2. identify different variables that 
 // can change throughout the life time -> state
@@ -16,8 +18,8 @@ import React, { Component } from 'react';
 // 4. event listener to change the state
 export default class Todo extends Component {
     state = {
-        taskList: ["Task-1", "Task-2", "Task-3", "Task4"],
-        currTask: ""
+        taskList: [],
+       
     }
     deleteTask = (cTask) => {
         // current - rest of the task 
@@ -29,15 +31,9 @@ export default class Todo extends Component {
             taskList: filteredtasks
         });
     }
-    handleCurrTask = (e) => {
-        let currValue = e.target.value;
-        this.setState({
-            currTask: currValue
-        })
-
-    }
-    addTask = () => {
-        let currTask = this.state.currTask;
+    
+    addTask = (currTask) => {
+        
         // let tempArr = this.state.taskList;
         // for (let i = 0; i < this.state.taskList.length; i++) {
         //     tempArr.push(this.state.taskList[i]);
@@ -46,32 +42,17 @@ export default class Todo extends Component {
         let tempArr = [...this.state.taskList, currTask]
         this.setState({
             taskList: tempArr,
-            currTask:""
+           
         })
     }
     render() {
         return (
             <div>
-                <div className="input-container">
-                    <input type="text" value={this.state.currTask}
-                    onChange={this.handleCurrTask} />
-                    <button onClick={this.addTask}>submit</button>
-                </div>
-                <div className="task-list">
-                    <ul>
-                        {this.state.taskList.map((task) => {
-                            return (
-                                <li className="tasklist">
-                                    <p>{task}</p>
-                                    <button onClick={() => 
-                                        { this.deleteTask(task) }}>
-                                        Delete</button>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
+                <InputContainer addTask ={this.addTask}/>
+               <TaskList taskList ={this.state.taskList} deleteTask ={this.deleteTask}/>
             </div>
         )
     }
 }
+
+
